@@ -1,0 +1,22 @@
+{
+  "name": "static-job-listing",
+  "version": "1.0.0",
+  "description": "a frontendmentor.io challenge",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pawelpikus/static-job-listing.git"
+  },
+  "author": "Paweł Pikus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pawelpikus/static-job-listing/issues"
+  },
+  "homepage": "https://github.com/pawelpikus/static-job-listing#readme",
+  "devDependencies": {
+    "eslint": "^7.30.0"
+  }
+}

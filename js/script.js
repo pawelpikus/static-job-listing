@@ -18,9 +18,50 @@ const jobPosts = [
         employmentLength: "Part Time",
         location: "Remote",
         filterTags: ["Fullstack", "Midweight", "Python", "React"]
+    },
+    {   
+        iconUrl: "./images/account.svg",
+        company: "Account",
+        flags: ["NEW!"],
+        title: "Junior Frontend Developer",
+        timeSincePosted: "2d ago",
+        employmentLength: "Part Time",
+        location: "USA only",
+        filterTags: ["Frontend", "Junior", "Javascript", "React", "Sass"]
+    },
+    {   
+        iconUrl: "./images/myhome.svg",
+        company: "MyHome",
+        flags: [],
+        title: "Junior Frontend Developer",
+        timeSincePosted: "5d ago",
+        employmentLength: "Contract",
+        location: "USA only",
+        filterTags: ["Frontend", "Junior", "CSS", "JavaScript"]
+    },
+    {   
+        iconUrl: "./images/loop-studios.svg",
+        company: "Loop Studios",
+        flags: [],
+        title: "Software Engineer",
+        timeSincePosted: "1w ago",
+        employmentLength: "Full Time",
+        location: "Worldwide",
+        filterTags: ["Fullstack", "Midweight", "Ruby", "JavaScript", "Sass"]
+    },
+    {   
+        iconUrl: "./images/faceit.svg",
+        company: "FaceIt",
+        flags: [],
+        title: "Junior Backend Developer",
+        timeSincePosted: "2w ago",
+        employmentLength: "Full Time",
+        location: "UK only",
+        filterTags: ["Backend", "Junior", "Ruby", "RoR"]
     }
 ]
 
+renderView();
 
 
 function renderView(){
@@ -28,13 +69,16 @@ function renderView(){
     mainContainer.innerHTML = "";
     
     for(let i = 0; i <jobPosts.length; i+=1){
-       console.log(rendercardView(mainContainer, i));
+       mainContainer.innerHTML +=rendercardView(i);
     }
-
-   
+    
+    renderFilterTags();
+    renderFlags();
+      
 }
 
-function rendercardView(DOMContainer, index){
+
+function rendercardView(index){
     let view = `
     
     <div class="card filter-container d-flex"></div>
@@ -56,33 +100,37 @@ function rendercardView(DOMContainer, index){
           
         </div> 
     </div>`
-        DOMContainer.innerHTML = view;
-        
-        renderFilterTags(jobPosts[index].filterTags);
-        renderFlags(jobPosts[index].flags);
+        return view;
+                
 }
 
-function renderFilterTags(tags){
-    const filterTagsContainer = document.querySelector(".filter-tags");
-    filterTagsContainer.textContent = "";
-    for (tag of tags){
-        let btn = document.createElement("button");
-        btn.textContent = tag;
-        btn.setAttribute('type', 'button');
-        filterTagsContainer.appendChild(btn);
-        btn.classList.add("filter-tag");
+function renderFilterTags(){
+    const filterTagsContainers = document.querySelectorAll(".filter-tags");
+    for(let container = 0; container < filterTagsContainers.length; container+=1){
+        filterTagsContainers[container].textContent = "";
+        for (let tag = 0; tag<jobPosts[container].filterTags.length; tag+=1){
+            let btn = document.createElement("button");
+            btn.textContent = jobPosts[container].filterTags[tag];
+            btn.setAttribute('type', 'button');
+            filterTagsContainers[container].appendChild(btn);
+            btn.classList.add("filter-tag");
+        }
+    }
+    
+    
+}
+
+function renderFlags(){
+    const flagsContainers = document.querySelectorAll(".flags-wrapper");
+    for (let container = 0; container < flagsContainers.length; container+=1){
+        flagsContainers[container].textContent = "";
+        for (let flagName = 0; flagName<jobPosts[container].flags.length; flagName+=1){
+            let flag = document.createElement("P");
+            flag.textContent = jobPosts[container].flags[flagName];
+            flagsContainers[container].appendChild(flag);
+            jobPosts[container].flags[flagName] === "NEW!" ? flag.classList.add("flag", "flag--light") : flag.classList.add("flag", "flag--dark");
+        }
     }
 }
 
-function renderFlags(flags){
-    const flagsContainer = document.querySelector(".flags-wrapper");
-    flagsContainer.textContent = "";
-    for (flagName of flags){
-        let flag = document.createElement("P");
-        flag.textContent = flagName;
-        flagsContainer.appendChild(flag);
-        flagName === "NEW!" ? flag.classList.add("flag", "flag--light") : flag.classList.add("flag", "flag--dark");
-    }
-}
 
-renderView();
