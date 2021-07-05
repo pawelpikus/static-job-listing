@@ -1,0 +1,150 @@
+*, *::after, *::before{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --color-primary: hsl(180, 29%, 50%);
+    --color-bg: hsl(180, 52%, 96%);
+    --color-primary-dark: hsl(180, 14%, 20%);
+    --color-bg-dark: hsl(180, 8%, 52%);
+}
+
+body{
+    background-color: var(--color-bg);
+    font-family: 'Spartan', sans-serif;
+    font-size: .9375rem;
+    color: var(--color-primary-dark);
+
+}
+
+.company-icon{
+    max-width: 100%;
+    width: 60px;
+    position: absolute;
+    top: -25px;
+}
+
+.container{
+    max-width: 320px;
+    width: 90%;
+    margin: 5em auto;
+}
+
+.d-flex{
+    display: flex;
+    flex-direction: column;
+}
+
+.card{
+    margin: 2em 0;
+    background-color: #fff;
+    padding: 3em 1em 1em;
+    position: relative;
+    border-radius: 5px;
+}
+
+.filter-container{
+    display: none;
+}
+
+.job-info-wrapper{
+    display: flex;
+    column-gap: 1em;
+    opacity: .7;
+    border-bottom: 2px solid rgba(0,0,0, .3);
+    margin: 1em 0;
+    padding-bottom: 1em;
+}
+
+.filter-tags{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1em;
+    gap: 1em;
+}
+
+.company-wraper{
+    display: flex;
+    gap: .5em;
+    align-items: center;
+    margin-bottom: 1em;
+
+}
+
+/* typography */
+.company-name {
+    font-size: 1em;
+    color: var(--color-primary);
+    
+    
+}
+
+.job-title{
+    font-size: 1.2em;
+}
+
+.filter-tag{
+    font-weight: 700;
+}
+
+.flags-wrapper{
+    display: flex;
+    gap: .5em;
+
+}
+
+.flag{
+    text-transform: uppercase;
+    font-size: .725rem;
+    font-weight: 500;
+    padding: .5em; 
+    border-radius: 12px;
+
+   
+}
+
+.flag--dark{
+    background-color: var(--color-primary-dark);
+    color: #fff;
+}
+
+.flag--light{
+    background-color: var(--color-primary);
+    color: #fff;
+    margin-left: .5em;
+}
+
+/* btns */
+
+.filter-tag{
+    border: none;
+    border-radius: 5px;
+    background-color: var(--color-bg);
+    padding: .5em 1.5em;
+    color: var(--color-primary);
+    
+}
+
+.filter-tag:hover,
+.filter-tag:focus{
+    background-color: var(--color-primary);
+    color: #fff;
+    cursor: pointer;
+}
+
+/* details */
+
+.featured{
+    border-left: 5px solid var(--color-primary);
+}
+
+.time-since-posted::after,
+.employment-length::after{
+    content: "•";
+    position: relative;
+    right: -7px;
+    font-size: 1rem;
+    opacity: .6;
+
+}
