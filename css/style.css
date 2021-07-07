@@ -36,16 +36,21 @@ body{
     flex-direction: column;
 }
 
-.card{
+.card,
+.filter-container{
     margin: 2em 0;
     background-color: #fff;
     padding: 3em 1em 1em;
     position: relative;
     border-radius: 5px;
+    box-shadow: .325em .325em 1em rgba(0,0,0, .3),
+                .125em  .125em .5em rgba(0,0,0, .1);
 }
 
 .filter-container{
     display: none;
+    padding: 1em;
+
 }
 
 .job-info-wrapper{
@@ -57,11 +62,18 @@ body{
     padding-bottom: 1em;
 }
 
-.filter-tags{
+.filter-tags,
+.active,
+.filtered-tags-container{
     display: flex;
     flex-wrap: wrap;
     margin-top: 1em;
     gap: 1em;
+}
+
+.active{
+    justify-content: space-between;
+    flex-wrap: nowrap;
 }
 
 .company-wraper{
@@ -117,7 +129,8 @@ body{
 
 /* btns */
 
-.filter-tag{
+.filter-tag,
+.clear-btn{
     border: none;
     border-radius: 5px;
     background-color: var(--color-bg);
@@ -126,11 +139,48 @@ body{
     
 }
 
+.clear-btn:hover,
+.clear-btn:focus{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.clear-btn{
+    align-self: center;
+}
+
+.filter-tag-wrapper{
+    display: flex;
+}
+
 .filter-tag:hover,
 .filter-tag:focus{
     background-color: var(--color-primary);
     color: #fff;
     cursor: pointer;
+}
+
+.clr-tag-btn{
+    cursor: pointer;
+    border: none;
+    display: inline;
+    width: 30px;
+    color: #fff;
+    background-color: var(--color-primary);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    
+}
+
+.clr-tag-btn:hover,
+.clr-tag-btn:focus{
+    background-color: var(--color-primary-dark);
+}
+
+.clicked{
+    border-radius: 0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius:5px;
 }
 
 /* details */
