@@ -111,20 +111,19 @@ const jobPosts = [{
 
 ]
 
-renderView();
+renderCards();
 
 const filterMainContainer = document.querySelector(".filter-container");
 const filteredtagsContainer = document.querySelector(".filtered-tags-container");
 const filterTags = document.querySelectorAll(".filter-tag");
 const clearBtn = document.querySelector(".clear-btn");
-
 let filteredTagsArray = [];
 
 filterTags.forEach(tag => {
     tag.addEventListener("click", () => {
-        
+        filterMainContainer.classList.add("active");
         if (!filteredTagsArray.includes(tag.textContent)) {
-            filterMainContainer.classList.add("active");
+            
             const tagView = `
             <div class="filter-tag-wrapper">
                 <button type="button" class="filter-tag clicked">${tag.textContent}</button>
@@ -140,12 +139,16 @@ filterTags.forEach(tag => {
         clearTagBtns.forEach(btn => {
             btn.addEventListener("click", (e) => {
                 e.target.parentNode.remove();
-                filteredTagsArray.pop();
-                filterCards(filteredTagsArray);
-                if (!filteredTagsArray.length) {
+                filteredTagsArray.shift();
+                console.log(filteredTagsArray);
+                                
+                if (filteredTagsArray.length) {
+                    filterCards(filteredTagsArray);
+                } else {
                     filterMainContainer.classList.remove("active");
-                    
+                    showAllCards();
                 }
+              
             });
         });
     });
@@ -154,27 +157,26 @@ filterTags.forEach(tag => {
 clearBtn.addEventListener("click", () => {
     filterMainContainer.classList.remove("active");
     filteredTagsArray = [];
-    renderView();
     while (filteredtagsContainer.firstChild) {
         filteredtagsContainer.firstChild.remove()
-
     }
-
+    showAllCards();
 })
 
-function renderView() {
-    
-    renderCards();
-    renderFeatured();
+function showAllCards(){
+    const cards = document.querySelectorAll(".card");
+    for (let card of cards){
+        card.style.display = "";
+    }
 }
 
 function filterCards(tags) {
     const cards = document.querySelectorAll(".card");
     for (let i = 0; i < jobPosts.length; i += 1) {
-        if (!jobPosts[i].filterTags.some(tagName => tags.includes(tagName))) {
-            cards[i].style.display = "none";
+        if (jobPosts[i].filterTags.some(tagName => tags.includes(tagName))) {
+            cards[i].style.display = "";
         } else {
-            cards[i].style.display = "block";
+            cards[i].style.display = "none";
         }
     }
 }
@@ -188,24 +190,28 @@ function renderCards() {
         renderFilterTags(i);
         renderFlags(i);
     }
+    renderFeatured();
 }
 
 function rendercardView(index) {
     let view = `
     <div class="card">
-        <img src="${jobPosts[index].iconUrl}" alt="company icon" class="company-icon">
-        <div class="main-info">
-          <div class="company-wraper">
-            <h2 class="company-name">${jobPosts[index].company}</h2>
-            <div class="flags-wrapper"></div>
-          </div>
-          <h1 class="job-title">${jobPosts[index].title}</h1>
-          <div class="job-info-wrapper">
-            <p class="time-since-posted">${jobPosts[index].timeSincePosted}</p>
-            <p class="employment-length">${jobPosts[index].employmentLength}</p>
-            <p class="location">${jobPosts[index].location}</p>
-          </div>
-        </div> 
+        <div class="main-content">
+            <img src="${jobPosts[index].iconUrl}" alt="company icon" class="company-icon">
+        
+            <div class="main-info">
+                <div class="company-wraper">
+                    <h2 class="company-name">${jobPosts[index].company}</h2>
+                    <div class="flags-wrapper"></div>
+                </div>
+                <h1 class="job-title">${jobPosts[index].title}</h1>
+                <div class="job-info-wrapper">
+                    <p class="time-since-posted">${jobPosts[index].timeSincePosted}</p>
+                    <p class="employment-length">${jobPosts[index].employmentLength}</p>
+                    <p class="location">${jobPosts[index].location}</p>
+                </div>
+            </div> 
+        </div>
         <div class="filter-tags">
           
         </div> 

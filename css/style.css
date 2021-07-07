@@ -28,7 +28,7 @@ body{
 .container{
     max-width: 320px;
     width: 90%;
-    margin: 5em auto;
+    margin: 5em auto 3em;
 }
 
 .d-flex{
@@ -36,9 +36,11 @@ body{
     flex-direction: column;
 }
 
+
+
 .card,
 .filter-container{
-    margin: 2em 0;
+    margin: 3em 0;
     background-color: #fff;
     padding: 3em 1em 1em;
     position: relative;
@@ -71,6 +73,58 @@ body{
     gap: 1em;
 }
 
+@media (min-width: 1200px){
+    .filter-tags{
+        flex-wrap: nowrap;
+        align-items: center;
+    }
+
+    .job-info-wrapper{
+        border-bottom: none;
+        padding: 0;
+        margin-bottom: 0;
+    }
+
+    .main-info{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .container,
+    .card-container,
+    .filter-container{
+        max-width: 1400px;
+    }
+
+    .filter-container{
+        margin: 1em 0;
+    }
+
+    .filtered-tags-container{
+        margin: 0;
+    }
+
+    .main-content{
+        display: flex;
+        column-gap: 1em;
+
+    }
+
+    .card{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2em 3em;
+    }
+
+    .company-icon{
+        position: unset;
+        width: auto;
+        height: auto;
+    }
+}
+
 .active{
     justify-content: space-between;
     flex-wrap: nowrap;
@@ -89,11 +143,16 @@ body{
     font-size: 1em;
     color: var(--color-primary);
     
-    
 }
 
 .job-title{
     font-size: 1.2em;
+}
+
+.job-title:hover,
+.job-title:focus{
+    cursor: pointer;
+    color: var(--color-primary);
 }
 
 .filter-tag{
@@ -198,3 +257,5 @@ body{
     opacity: .6;
 
 }
+
+
