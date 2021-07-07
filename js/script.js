@@ -1,5 +1,4 @@
-const jobPosts = [
-    {   
+const jobPosts = [{
         iconUrl: "./images/photosnap.svg",
         company: "Photosnap",
         flags: ["NEW!", "FEATURED"],
@@ -10,7 +9,7 @@ const jobPosts = [
         location: "USA only",
         filterTags: ["Frontend", "Senior", "HTML", "CSS", "JavaScript"]
     },
-    {   
+    {
         iconUrl: "./images/manage.svg",
         company: "Manage",
         flags: ["NEW!", "FEATURED"],
@@ -21,7 +20,7 @@ const jobPosts = [
         location: "Remote",
         filterTags: ["Fullstack", "Midweight", "Python", "React"]
     },
-    {   
+    {
         iconUrl: "./images/account.svg",
         company: "Account",
         flags: ["NEW!"],
@@ -32,7 +31,7 @@ const jobPosts = [
         location: "USA only",
         filterTags: ["Frontend", "Junior", "Javascript", "React", "Sass"]
     },
-    {   
+    {
         iconUrl: "./images/myhome.svg",
         company: "MyHome",
         flags: [],
@@ -43,7 +42,7 @@ const jobPosts = [
         location: "USA only",
         filterTags: ["Frontend", "Junior", "CSS", "JavaScript"]
     },
-    {   
+    {
         iconUrl: "./images/loop-studios.svg",
         company: "Loop Studios",
         flags: [],
@@ -54,7 +53,7 @@ const jobPosts = [
         location: "Worldwide",
         filterTags: ["Fullstack", "Midweight", "Ruby", "JavaScript", "Sass"]
     },
-    {   
+    {
         iconUrl: "./images/faceit.svg",
         company: "FaceIt",
         flags: [],
@@ -65,7 +64,7 @@ const jobPosts = [
         location: "UK only",
         filterTags: ["Backend", "Junior", "Ruby", "RoR"]
     },
-    {   
+    {
         iconUrl: "./images/shortly.svg",
         company: "Shortly",
         flags: [],
@@ -76,7 +75,7 @@ const jobPosts = [
         location: "Worldwide",
         filterTags: ["Frontend", "Junior", "HTML", "JavaScript", "Sass"]
     },
-    {   
+    {
         iconUrl: "./images/insure.svg",
         company: "Insure",
         flags: [],
@@ -87,7 +86,7 @@ const jobPosts = [
         location: "USA only",
         filterTags: ["Frontend", "Junior", "Vue", "JavaScript", "Sass"]
     },
-    {   
+    {
         iconUrl: "./images/eyecam-co.svg",
         company: "Eyecam co.",
         flags: [],
@@ -98,7 +97,7 @@ const jobPosts = [
         location: "Wordwide",
         filterTags: ["Fullstack", "Midweight", "JavaScript", "Python", "Django"]
     },
-    {   
+    {
         iconUrl: "./images/the-air-filter-company.svg",
         company: "The Air Filter Company",
         flags: [],
@@ -111,86 +110,87 @@ const jobPosts = [
     }
 
 ]
-let filteredTagsArray = [];
 
-function renderInitialView(){
-    jobPosts.forEach((job)=>{
-        job.filterTags.forEach(tag=>{
-            if(!filteredTagsArray.includes(tag))
-            filteredTagsArray.push(tag);
-        })
-    })
-    updateView(filteredTagsArray);
-    filteredTagsArray = [];
-}
-
-renderInitialView();
-renderFeatured();
+renderView();
 
 const filterMainContainer = document.querySelector(".filter-container");
 const filteredtagsContainer = document.querySelector(".filtered-tags-container");
 const filterTags = document.querySelectorAll(".filter-tag");
 const clearBtn = document.querySelector(".clear-btn");
 
-filterTags.forEach(tag =>{
-    tag.addEventListener("click", ()=>{
-             
-        if(!filteredTagsArray.includes(tag.textContent)){
-            filterMainContainer.classList.add("active");           
+let filteredTagsArray = [];
+
+filterTags.forEach(tag => {
+    tag.addEventListener("click", () => {
+        
+        if (!filteredTagsArray.includes(tag.textContent)) {
+            filterMainContainer.classList.add("active");
             const tagView = `
             <div class="filter-tag-wrapper">
-            <button type="button" class="filter-tag clicked">${tag.textContent}</button>
-            <button type="button" class="clr-tag-btn">✖</button>
-          </div>
+                <button type="button" class="filter-tag clicked">${tag.textContent}</button>
+                <button type="button" class="clr-tag-btn">✖</button>
+            </div>
             `
             filteredtagsContainer.innerHTML += tagView;
             filteredTagsArray.push(tag.textContent);
-            updateView(filteredTagsArray);
-            
+            filterCards(filteredTagsArray);
         }
-        
-        
+
         const clearTagBtns = document.querySelectorAll(".clr-tag-btn");
-            clearTagBtns.forEach(btn =>{
-                btn.addEventListener("click", (e)=>{
-                    if (clearTagBtns.length){
-                        e.target.parentNode.remove();
-                        filteredTagsArray.pop();
-                        updateView(filteredTagsArray);
-                    } else{
-                        renderInitialView();
-                    }
-                })
+        clearTagBtns.forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.target.parentNode.remove();
+                filteredTagsArray.pop();
+                filterCards(filteredTagsArray);
+                if (!filteredTagsArray.length) {
+                    filterMainContainer.classList.remove("active");
+                    
+                }
             });
+        });
     });
 });
 
-clearBtn.addEventListener("click", () =>{
+clearBtn.addEventListener("click", () => {
     filterMainContainer.classList.remove("active");
-    
+    filteredTagsArray = [];
+    renderView();
     while (filteredtagsContainer.firstChild) {
         filteredtagsContainer.firstChild.remove()
 
     }
-    renderInitialView();
+
 })
 
-function updateView(filterTag){
-    const mainContainer = document.querySelector(".card-container");
-    mainContainer.innerHTML = ``    
-    for(let i = 0; i <jobPosts.length; i+=1){
-        if(jobPosts[i].filterTags.some(tagName => filterTag.includes(tagName))){
-            mainContainer.innerHTML +=rendercardView(i);
-            renderFilterTags(i);
-            renderFlags(i);
+function renderView() {
+    
+    renderCards();
+    renderFeatured();
+}
+
+function filterCards(tags) {
+    const cards = document.querySelectorAll(".card");
+    for (let i = 0; i < jobPosts.length; i += 1) {
+        if (!jobPosts[i].filterTags.some(tagName => tags.includes(tagName))) {
+            cards[i].style.display = "none";
+        } else {
+            cards[i].style.display = "block";
         }
     }
-    renderFeatured();
-    
 }
 
 
-function rendercardView(index){
+function renderCards() {
+    const mainContainer = document.querySelector(".card-container");
+    mainContainer.innerHTML = "";
+    for (let i = 0; i < jobPosts.length; i += 1) {
+        mainContainer.innerHTML += rendercardView(i);
+        renderFilterTags(i);
+        renderFlags(i);
+    }
+}
+
+function rendercardView(index) {
     let view = `
     <div class="card">
         <img src="${jobPosts[index].iconUrl}" alt="company icon" class="company-icon">
@@ -210,39 +210,38 @@ function rendercardView(index){
           
         </div> 
     </div>`
-        return view;
-                
+    return view;
+
 }
 
-function renderFilterTags(index){
+function renderFilterTags(index) {
     const filterTagsContainers = document.querySelectorAll(".filter-tags");
-    console.log(filterTagsContainers)
-    for (let tag = 0; tag<jobPosts[index].filterTags.length; tag+=1){
+
+    for (let tag = 0; tag < jobPosts[index].filterTags.length; tag += 1) {
         let btn = document.createElement("button");
         btn.textContent = jobPosts[index].filterTags[tag];
         btn.setAttribute('type', 'button');
-        filterTagsContainers[filterTagsContainers.length-1].appendChild(btn);
+        filterTagsContainers[filterTagsContainers.length - 1].appendChild(btn);
         btn.classList.add("filter-tag");
     }
 }
 
 
-function renderFlags(index){
+function renderFlags(index) {
     const flagsContainers = document.querySelectorAll(".flags-wrapper");
-    for (let flagName = 0; flagName<jobPosts[index].flags.length; flagName+=1){
+    for (let flagName = 0; flagName < jobPosts[index].flags.length; flagName += 1) {
         let flag = document.createElement("P");
         flag.textContent = jobPosts[index].flags[flagName];
-        flagsContainers[flagsContainers.length-1].appendChild(flag);
+        flagsContainers[flagsContainers.length - 1].appendChild(flag);
         jobPosts[index].flags[flagName] === "NEW!" ? flag.classList.add("flag", "flag--light") : flag.classList.add("flag", "flag--dark");
     }
-}    
+}
 
-function renderFeatured(){
+function renderFeatured() {
     const cards = document.querySelectorAll(".card");
-    for (let card = 0; card<cards.length; card+=1){
-        if(jobPosts[card].isfeatured){
+    for (let card = 0; card < cards.length; card += 1) {
+        if (jobPosts[card].isfeatured) {
             cards[card].classList.add("featured");
         }
     }
 }
-
