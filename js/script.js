@@ -173,7 +173,7 @@ function showAllCards(){
 function filterCards(tags) {
     const cards = document.querySelectorAll(".card");
     for (let i = 0; i < jobPosts.length; i += 1) {
-        if (jobPosts[i].filterTags.some(tagName => tags.includes(tagName))) {
+        if (tags.every(tagName => jobPosts[i].filterTags.includes(tagName))) {
             cards[i].style.display = "";
         } else {
             cards[i].style.display = "none";
