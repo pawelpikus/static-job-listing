@@ -140,12 +140,12 @@ filterTags.forEach(tag => {
             btn.addEventListener("click", (e) => {
                 e.target.parentNode.remove();
                 filteredTagsArray.shift();
-                console.log(filteredTagsArray);
-                                
+                                                
                 if (filteredTagsArray.length) {
                     filterCards(filteredTagsArray);
                 } else {
                     filterMainContainer.classList.remove("active");
+                    filteredTagsArray = [];
                     showAllCards();
                 }
               
