@@ -11,7 +11,6 @@
 }
 
 body{
-    
     background: url("../images/bg-header-desktop.svg"),  var(--color-bg);
     background-size: 100% 100px;
     background-repeat: no-repeat;
@@ -21,8 +20,11 @@ body{
 
 }
 
-.company-icon{
+img{
     max-width: 100%;
+}
+
+.company-icon{
     width: 60px;
     position: absolute;
     top: -25px;
@@ -33,13 +35,6 @@ body{
     width: 90%;
     margin: 10em auto 2em;
 }
-
-.d-flex{
-    display: flex;
-    flex-direction: column;
-}
-
-
 
 .card,
 .filter-container{
