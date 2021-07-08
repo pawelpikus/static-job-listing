@@ -117,13 +117,12 @@ const filterMainContainer = document.querySelector(".filter-container");
 const filteredtagsContainer = document.querySelector(".filtered-tags-container");
 const filterTags = document.querySelectorAll(".filter-tag");
 const clearBtn = document.querySelector(".clear-btn");
-let filteredTagsArray = [];
+let arrayFilterTags = [];
 
 filterTags.forEach(tag => {
     tag.addEventListener("click", () => {
         filterMainContainer.classList.add("active");
-        if (!filteredTagsArray.includes(tag.textContent)) {
-            
+        if (!arrayFilterTags.includes(tag.textContent)) {
             const tagView = `
             <div class="filter-tag-wrapper">
                 <button type="button" class="filter-tag clicked">${tag.textContent}</button>
@@ -131,21 +130,21 @@ filterTags.forEach(tag => {
             </div>
             `
             filteredtagsContainer.innerHTML += tagView;
-            filteredTagsArray.push(tag.textContent);
-            filterCards(filteredTagsArray);
+            arrayFilterTags.push(tag.textContent);
+            filterCards(arrayFilterTags);
         }
 
         const clearTagBtns = document.querySelectorAll(".clr-tag-btn");
         clearTagBtns.forEach(btn => {
             btn.addEventListener("click", (e) => {
+                let nameFilterTag = e.target.parentNode.firstElementChild.textContent;
                 e.target.parentNode.remove();
-                filteredTagsArray.shift();
-                                                
-                if (filteredTagsArray.length) {
-                    filterCards(filteredTagsArray);
+                arrayFilterTags = removeTagfromArray(nameFilterTag); 
+                                                               
+                if (arrayFilterTags.length) {
+                    filterCards(arrayFilterTags);
                 } else {
                     filterMainContainer.classList.remove("active");
-                    filteredTagsArray = [];
                     showAllCards();
                 }
               
@@ -156,12 +155,16 @@ filterTags.forEach(tag => {
 
 clearBtn.addEventListener("click", () => {
     filterMainContainer.classList.remove("active");
-    filteredTagsArray = [];
+    arrayFilterTags = [];
     while (filteredtagsContainer.firstChild) {
         filteredtagsContainer.firstChild.remove()
     }
     showAllCards();
 })
+
+function removeTagfromArray(tagName){
+    return arrayFilterTags.filter((elem => elem !==tagName));
+}
 
 function showAllCards(){
     const cards = document.querySelectorAll(".card");
@@ -180,7 +183,6 @@ function filterCards(tags) {
         }
     }
 }
-
 
 function renderCards() {
     const mainContainer = document.querySelector(".card-container");
@@ -231,7 +233,6 @@ function renderFilterTags(index) {
         btn.classList.add("filter-tag");
     }
 }
-
 
 function renderFlags(index) {
     const flagsContainers = document.querySelectorAll(".flags-wrapper");
